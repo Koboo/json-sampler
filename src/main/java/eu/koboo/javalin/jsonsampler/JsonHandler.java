@@ -1,23 +1,13 @@
 package eu.koboo.javalin.jsonsampler;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import eu.koboo.javalin.jsonsampler.logging.LogUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import io.javalin.http.HttpStatus;
-import io.javalin.http.NotFoundResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -35,7 +25,7 @@ public class JsonHandler implements Handler {
         log.info(LogUtils.stretch("path: ", stretch) + ctx.path());
         log.info(LogUtils.stretch("method: ", stretch) + ctx.method().name());
         String contentType = ctx.contentType();
-        if(contentType != null && !contentType.isEmpty()) {
+        if (contentType != null && !contentType.isEmpty()) {
             log.info(LogUtils.stretch("content: ", stretch) + contentType);
         }
         log.info(LogUtils.stretch("user-agent: ", stretch) + ctx.userAgent());
@@ -51,15 +41,15 @@ public class JsonHandler implements Handler {
 
     private String getIp(Context ctx) {
         String forwardedIp = ctx.header("X-Forwarded-For");
-        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+        if (forwardedIp != null && !forwardedIp.isEmpty()) {
             return forwardedIp;
         }
         forwardedIp = ctx.header("X-Real-IP");
-        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+        if (forwardedIp != null && !forwardedIp.isEmpty()) {
             return forwardedIp;
         }
         forwardedIp = ctx.header("CF-Connecting-IP");
-        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+        if (forwardedIp != null && !forwardedIp.isEmpty()) {
             return forwardedIp;
         }
         return ctx.ip();

@@ -59,7 +59,7 @@ public class JsonSampler {
     }
 
     protected void stop() throws Exception {
-        if(javalin != null) {
+        if (javalin != null) {
             javalin.stop();
         }
     }
