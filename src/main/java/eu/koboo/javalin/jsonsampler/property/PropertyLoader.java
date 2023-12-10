@@ -61,7 +61,7 @@ public class PropertyLoader {
         if (stream == null) {
             return;
         }
-        appendStreamProperties(stream);
+        appendStream(stream);
     }
 
     public static void appendFile() {
@@ -71,7 +71,7 @@ public class PropertyLoader {
                 return;
             }
             FileInputStream stream = new FileInputStream(propertyFile);
-            appendStreamProperties(stream);
+            appendStream(stream);
         } catch (IOException e) {
             throw new RuntimeException("Couldn't read file storage properties: ", e);
         }
@@ -102,7 +102,7 @@ public class PropertyLoader {
         }
     }
 
-    public static void appendStreamProperties(InputStream stream) {
+    public static void appendStream(InputStream stream) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             BOOT_PROPERTIES_INSTANCE.load(reader);
         } catch (IOException e) {
