@@ -30,7 +30,7 @@ public class JsonHandler implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         log.info("=================================================");
         int stretch = 20;
-        log.info(LogUtils.stretch("ip: ", stretch) + ctx.ip());
+        log.info(LogUtils.stretch("ip: ", stretch) + getIp(ctx));
         log.info(LogUtils.stretch("url: ", stretch) + ctx.fullUrl());
         log.info(LogUtils.stretch("path: ", stretch) + ctx.path());
         log.info(LogUtils.stretch("method: ", stretch) + ctx.method().name());
@@ -47,5 +47,21 @@ public class JsonHandler implements Handler {
         }
         log.info("=================================================");
 
+    }
+
+    private String getIp(Context ctx) {
+        String forwardedIp = ctx.header("X-Forwarded-For");
+        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+            return forwardedIp;
+        }
+        forwardedIp = ctx.header("X-Real-IP");
+        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+            return forwardedIp;
+        }
+        forwardedIp = ctx.header("CF-Connecting-IP");
+        if(forwardedIp != null && !forwardedIp.isEmpty()) {
+            return forwardedIp;
+        }
+        return ctx.ip();
     }
 }
