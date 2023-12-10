@@ -1,9 +1,18 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version ("8.1.1")
+    id("application")
 }
 
-group = "org.example"
+group = "eu.koboo.javalin"
 version = "1.0-SNAPSHOT"
+var mainClassName = "eu.koboo.javalin.jsonsampler.Bootstrap";
+
+application {
+    mainClass.set(mainClassName)
+}
 
 repositories {
     mavenCentral()
@@ -40,4 +49,13 @@ java {
 tasks.withType<JavaCompile>().configureEach {
     options.isFork = true
     options.isIncremental = true
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    manifest {
+        attributes(mapOf(
+                "Main-Class" to mainClassName,
+                "Implementation-Version" to rootProject.version
+        ))
+    }
 }

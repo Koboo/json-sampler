@@ -14,25 +14,13 @@ public class LogFormatter extends Formatter {
     @Override
     public String format(LogRecord record) {
         String[] sourceSplit = record.getSourceClassName().split("\\.");
-        String source = stretch(record.getSourceClassName(), 30);
+        String source = LogUtils.stretch(record.getSourceClassName(), 30);
         String timeStamp = SDF.format(new Date(record.getMillis()));
         String message = record.getMessage();
         if (record.getThrown() != null) {
             message += convertToString(record.getThrown());
         }
         return "[" + record.getLevel() + "] [" + timeStamp + "] [" + record.getSourceClassName() + "] " + message + System.lineSeparator();
-    }
-
-    public String stretch(String message, int length) {
-        if (message.length() < length)
-            for (int i = message.length(); i < length; i++) {
-                message = "." + message;
-            }
-        else
-            for (int i = message.length(); i > length; i--) {
-                message = message.substring(1);
-            }
-        return message;
     }
 
     public String convertToString(Throwable throwable) {
