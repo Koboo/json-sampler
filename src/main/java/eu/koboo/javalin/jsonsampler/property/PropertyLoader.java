@@ -25,17 +25,17 @@ public class PropertyLoader {
 
     public static void load(Class<?> propertyHolderClass) {
         for (Field declaredField : propertyHolderClass.getDeclaredFields()) {
-            if(!Modifier.isStatic(declaredField.getModifiers())) {
+            if (!Modifier.isStatic(declaredField.getModifiers())) {
                 continue;
             }
-            if(!Modifier.isPublic(declaredField.getModifiers())) {
+            if (!Modifier.isPublic(declaredField.getModifiers())) {
                 continue;
             }
-            if(!Modifier.isFinal(declaredField.getModifiers())) {
+            if (!Modifier.isFinal(declaredField.getModifiers())) {
                 continue;
             }
             Class<?> fieldType = declaredField.getType();
-            if(!VarProperty.class.isAssignableFrom(fieldType)) {
+            if (!VarProperty.class.isAssignableFrom(fieldType)) {
                 continue;
             }
             try {

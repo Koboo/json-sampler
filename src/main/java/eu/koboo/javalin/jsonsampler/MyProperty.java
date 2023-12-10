@@ -1,8 +1,8 @@
 package eu.koboo.javalin.jsonsampler;
 
+import eu.koboo.javalin.jsonsampler.property.VarProperty;
 import eu.koboo.javalin.jsonsampler.property.types.IntProperty;
 import eu.koboo.javalin.jsonsampler.property.types.StringProperty;
-import eu.koboo.javalin.jsonsampler.property.VarProperty;
 
 
 public class MyProperty {
